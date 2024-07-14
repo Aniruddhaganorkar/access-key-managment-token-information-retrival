@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from "@nestjs/microservices";
-import { AccessKeyService } from './access-keys-service';
+import { AccessKeyService } from './access-keys.service';
 import { UpdateUserDto, CreateUserDto, DeleteKeyUserDto } from "@app/common/dtos/index";
 
 @Controller()

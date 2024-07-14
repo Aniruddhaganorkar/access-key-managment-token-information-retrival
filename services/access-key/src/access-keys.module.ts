@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccessKeyController } from './access-keys.controller';
-import { AccessKeyService } from './access-keys-service';
+import { AccessKeyService } from './access-keys.service';
 import { AccessKeys } from './entities/access-keys.entity';
 
 @Module({
