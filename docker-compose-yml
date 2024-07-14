@@ -33,12 +33,12 @@ services:
   token_info:
     build:
       context: .
-      dockerfile: ./services/token-info-service/Dockerfile
+      dockerfile: ./services/token-info/Dockerfile
       target: development
-      # container_name: token-info-service
-    command: npm run start:dev token-info-service
+      # container_name: token-info
+    command: npm run start:dev token-info
     # env_file:
-    #   - ./app/token-info-service/.env
+    #   - ./app/token-info/.env
     depends_on:
       - tis_mongo_db
     volumes:
