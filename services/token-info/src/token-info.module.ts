@@ -7,7 +7,7 @@ import { TokenInfoRepository } from './token-info.repository';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://root:password@tis_mongo_db:27017/token_info_service?retryWrites=true&writeConcern=majority&authSource=admin'),
+    MongooseModule.forRoot(process.env.MONGO_DB_URL),
     MongooseModule.forFeature([
       {
         name: TokenInfo.name,
