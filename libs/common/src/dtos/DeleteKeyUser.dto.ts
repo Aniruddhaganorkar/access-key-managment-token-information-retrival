@@ -1,12 +1,11 @@
-import { IsNotEmpty, IsUUID } from "class-validator";
+import { IsNotEmpty, IsUUID } from 'class-validator';
 
 export class DeleteKeyUserDto {
-    @IsNotEmpty()
-    @IsUUID()
-    userId: string;
+  @IsNotEmpty()
+  @IsUUID()
+  userId: string;
 
-    @IsNotEmpty()
-    @IsUUID()
-    accessKey: string;
+  @IsNotEmpty()
+  @IsUUID()
+  accessKey: string;
 }
-

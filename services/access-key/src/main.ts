@@ -10,7 +10,7 @@ async function bootstrap() {
       options: {
         servers: ['nats://nats:4222'],
       },
-    }
+    },
   );
   await app.listen();
 }

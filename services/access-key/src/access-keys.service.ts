@@ -1,21 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { AccessKeys } from './entities/access-keys.entity';
-import { UpdateUserDto, CreateUserDto, DeleteKeyUserDto } from "@app/common/dtos/index";
+import { UpdateUserDto, CreateUserDto, DeleteKeyUserDto } from '@app/common/dtos';
 
 @Injectable()
 export class AccessKeyService {
   constructor(
-    @InjectRepository(AccessKeys) private accessKeysRepository: Repository<AccessKeys>
-  ) {} 
+    @InjectRepository(AccessKeys)
+    private accessKeysRepository: Repository<AccessKeys>,
+  ) {}
 
   async getAllUsers() {
     return await this.accessKeysRepository.find();
   }
 
   async getUserById(userId: string) {
-    const foundUser = await this.accessKeysRepository.findOne({ where: { userId }});
+    const foundUser = await this.accessKeysRepository.findOne({ where: { userId } });
     if (!foundUser) {
       throw new Error('User not found');
     }
@@ -23,7 +24,7 @@ export class AccessKeyService {
   }
 
   async getUserByIdAndKey(userIdAndKey: DeleteKeyUserDto) {
-    const foundUser = await this.accessKeysRepository.findOne({ where: { ...userIdAndKey }});
+    const foundUser = await this.accessKeysRepository.findOne({ where: { ...userIdAndKey } });
     if (!foundUser) {
       throw new Error('User not found');
     }
@@ -31,22 +32,22 @@ export class AccessKeyService {
   }
 
   async createUser(createUserDto: CreateUserDto) {
-      const newUser = this.accessKeysRepository.create(createUserDto);  
-      const userCreated = await this.accessKeysRepository.save(newUser);
-      return userCreated;
+    const newUser = this.accessKeysRepository.create(createUserDto);
+    const userCreated = await this.accessKeysRepository.save(newUser);
+    return userCreated;
   }
 
   async updateUser(updateUserDto: UpdateUserDto) {
-      const user = await this.getUserById(updateUserDto.userId);
-      if (!user || user === null || user === undefined) {
-          throw new Error('User not found');
-      }
-      Object.assign(user, updateUserDto);
-      return await this.accessKeysRepository.save(user);
+    const user = await this.getUserById(updateUserDto.userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    Object.assign(user, updateUserDto);
+    return await this.accessKeysRepository.save(user);
   }
 
   async deleteUser(deleteKeyUserDto: DeleteKeyUserDto) {
-    try{
+    try {
       const user = await this.getUserByIdAndKey(deleteKeyUserDto);
       return await this.accessKeysRepository.remove(user);
     } catch (error) {
@@ -55,7 +56,7 @@ export class AccessKeyService {
   }
 
   async deactivateKeyByUser(deactivateKeyUserDto: DeleteKeyUserDto) {
-    try{
+    try {
       const user = await this.getUserByIdAndKey(deactivateKeyUserDto);
       user.isActive = false;
       return await this.accessKeysRepository.save(user);
@@ -65,7 +66,7 @@ export class AccessKeyService {
   }
 
   async activateKeyByUser(activateKeyUserDto: DeleteKeyUserDto) {
-    try{
+    try {
       const user = await this.getUserByIdAndKey(activateKeyUserDto);
       user.isActive = true;
       return await this.accessKeysRepository.save(user);
@@ -73,5 +74,4 @@ export class AccessKeyService {
       throw new Error('User not found');
     }
   }
-
 }

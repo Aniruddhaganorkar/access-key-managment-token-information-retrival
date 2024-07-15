@@ -1,7 +1,17 @@
+import { IsDateString, IsNumber, IsString, IsUUID, Length, Min } from 'class-validator';
+
 export class UpdateTisForTokenDto {
-    username: string;
-    accessKey: string;
-    requestCount: number;
-    lastAccessAt: Date;
+  @IsString()
+  @Length(4, 20)
+  username: string;
+
+  @IsUUID()
+  accessKey: string;
+
+  @IsNumber()
+  @Min(1)
+  requestCount: number;
+
+  @IsDateString()
+  lastAccessAt: Date;
 }
-// #TODO - perform transformation and validation

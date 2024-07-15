@@ -1,6 +1,13 @@
+import { IsDateString, IsNumber, IsUUID, Min } from 'class-validator';
+
 export class UpdateTisFromKmsDto {
-    userId: string;
-    reqPerMin: number;
-    keyExpireAt: Date;
+  @IsUUID()
+  userId: string;
+
+  @IsNumber()
+  @Min(1)
+  reqPerMin: number;
+
+  @IsDateString()
+  keyExpireAt: Date;
 }
-// #TODO - perform transformation and validation

@@ -8,13 +8,13 @@ import { AccessKeys } from './entities/access-keys.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'kms_pg_db',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'key_manage_service',
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(process.env.POSTGRES_PORT, 10),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       entities: [AccessKeys],
-      synchronize: false // !(process.env.NODE_ENV.trim() === 'production'),
+      synchronize: false
     }),
     TypeOrmModule.forFeature([AccessKeys]),
   ],
